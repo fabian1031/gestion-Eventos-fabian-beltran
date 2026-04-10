@@ -1,74 +1,73 @@
-let cantidadItems  = 0;
+let cantidadProductos = 0;
 let totalAcumulado = 0;
 
-const listaCarrito = document.querySelector("#lista-carrito");
-const totalSpan    = document.querySelector("#total");
-const contadorNav  = document.querySelector(".contador-carrito");
-const btnVaciar    = document.querySelector("#btn-vaciar");
-const msgVacio     = document.querySelector("#msg-vacio");
+let contadorCarrito = document.getElementById("contador-carrito");
+let botones = document.querySelectorAll(".btn-agregar");
+let listaCarrito = document.getElementById("lista-carrito");
+let totalProductos = document.getElementById("total");
+let botonVaciar = document.getElementById("btn-vaciar");
+let mensajeVacio = document.getElementById("mensaje-vacio");
 
-function updateContador() {
-  contadorNav.textContent = cantidadItems;
+function updateBadge() {
+  contadorCarrito.textContent = cantidadProductos;
 }
+
 
 function updateTotal() {
-  totalSpan.textContent = `$: ${totalAcumulado}`;
+  totalProductos.textContent = totalAcumulado;
 }
 
-function agregarAlCarrito(nombre, precio) {
-  msgVacio.style.display = "none";
 
-  const li = document.createElement("li");
-  li.classList.add("producto-agregado");
-  li.innerHTML = `
-    <span>${nombre} - $${precio}</span>
-    <button class="btn btn-sm btn-eliminar">X</button>
-  `;
+function agregarProducto(cuenta) {
+  let precio = Number(cuenta.target.dataset.precio);
+  let nombre = cuenta.target.dataset.nombre;
+  totalAcumulado = totalAcumulado + precio;
+  cantidadProductos++;
 
-  listaCarrito.appendChild(li);
+  mensajeVacio.style.display = "none";
 
-  cantidadItems++;
-  totalAcumulado += precio;
-
-  const btnEliminar = li.querySelector(".btn-eliminar");
-  btnEliminar.addEventListener("click", () => eliminarItem(li, precio));
-
-  updateContador();
   updateTotal();
+  updateBadge();
+
+  let nuevoItem = document.createElement("li");
+  nuevoItem.textContent = nombre + " - $" + precio;
+
+  let botonEliminar = document.createElement("button");
+  botonEliminar.textContent = "X";
+
+  botonEliminar.addEventListener("click", () => {
+    eliminarItem(nuevoItem, precio);
+  });
+
+  nuevoItem.appendChild(botonEliminar);
+  listaCarrito.appendChild(nuevoItem);
 }
+
 
 function eliminarItem(li, precio) {
   li.remove();
+  totalAcumulado = totalAcumulado - precio;
+  cantidadProductos = cantidadProductos - 1;
 
-  cantidadItems--;
-  totalAcumulado -= precio;
-
-  if (cantidadItems === 0) {
-    msgVacio.style.display = "block";
+  if (cantidadProductos === 0) {
+    mensajeVacio.style.display = "block";
   }
 
-  updateContador();
   updateTotal();
+  updateBadge();
 }
 
-const botonesAgregar = document.querySelectorAll(".btn-agregar");
 
-botonesAgregar.forEach(boton => {
-  boton.addEventListener("click", () => {
-    const nombre = boton.dataset.nombre;
-    const precio = Number(boton.dataset.precio);
-    agregarAlCarrito(nombre, precio);
-  });
+botones.forEach((boton) => {
+  boton.addEventListener("click", agregarProducto);
 });
 
-btnVaciar.addEventListener("click", () => {
-  const items = listaCarrito.querySelectorAll(".producto-agregado");
-  items.forEach(item => item.remove());
 
-  cantidadItems  = 0;
+botonVaciar.addEventListener("click", () => {
+  listaCarrito.innerHTML = "";
   totalAcumulado = 0;
-
-  msgVacio.style.display = "block";
-  updateContador();
+  cantidadProductos = 0;
+  mensajeVacio.style.display = "block";
   updateTotal();
+  updateBadge();
 });

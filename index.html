@@ -1,114 +1,89 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
 
-    <link rel="stylesheet" href="style.css" />
-    <title>Carrito compras</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Mi tienda 🛒</a>
-        <div class="d-flex align-items-center">
-          <p class="mb-0">Carrito <span class="contador-carrito">0</span></p>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="style.css" />
+  <title>Carrito compras</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Mi tienda 🛒</a>
+      <div class="d-flex align-items-center">
+        <p class="mb-0">Carrito <span id="contador-carrito">0</span></p>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <main id="contenedor">
-      <!-- Tarjeta 1 -->
-
-      <div class="card" style="width: 18rem">
-        <img src="./assets/pera.png" class="card-img-top" alt="pera" />
-        <div class="card-body">
-          <h5 class="card-title">pera</h5>
-          <p class="card-text">$ 1.000</p>
-          <!-- boton pera -->
-          <button
-            id="btn-pera"
-            class="btn btn-primary btn-agregar"
-            data-nombre="Pera"
-            data-precio="1000"
-          >
-            Agregar
-          </button>
-        </div>
+  <main id="contenedor">
+    <!-- Tarjeta 1 -->
+    <div class="card" style="width: 18rem">
+      <img src="./assets/pera.png" class="card-img-top" alt="pera" />
+      <div class="card-body">
+        <h5 class="card-title">pera</h5>
+        <p class="card-text">$ 1.000</p>
+        <!-- boton pera -->
+        <button class="btn btn-primary btn-agregar" data-nombre="Pera" data-precio="1000">
+          Agregar
+        </button>
       </div>
+    </div>
 
-      <!-- Tarjeta 2: Sandía -->
-<div class="card" style="width: 18rem">
-  <img src="./assets/sandia.png" class="card-img-top" alt="sandia" />
-  <div class="card-body">
-    <h5 class="card-title">Sandía</h5>
-    <p class="card-text">3.000</p>
-    <button
-      id="btn-sandia"
-      class="btn btn-primary btn-agregar"
-      data-nombre="Sandía"
-      data-precio="3000"
-    >
-      Agregar
-    </button>
-  </div>
-</div>
+    <!-- Tarjeta 2: Sandía -->
+    <div class="card" style="width: 18rem">
+      <img src="./assets/sandia.png" class="card-img-top" alt="sandia" />
+      <div class="card-body">
+        <h5 class="card-title">Sandía</h5>
+        <p class="card-text">3.000</p>
+        <button class="btn btn-primary btn-agregar" data-nombre="Sandía" data-precio="3000">
+          Agregar
+        </button>
+      </div>
+    </div>
 
-<!-- Tarjeta 3: Manzana -->
-<div class="card" style="width: 18rem">
-  <img src="./assets/manzana.png" class="card-img-top" alt="manzana" />
-  <div class="card-body">
-    <h5 class="card-title">Manzana</h5>
-    <p class="card-text">800</p>
-    <button
-      id="btn-manzana"
-      class="btn btn-primary btn-agregar"
-      data-nombre="Manzana"
-      data-precio="800"
-    >
-      Agregar
-    </button>
-  </div>
-</div>
+    <!-- Tarjeta 3: Manzana -->
+    <div class="card" style="width: 18rem">
+      <img src="./assets/manzana.png" class="card-img-top" alt="manzana" />
+      <div class="card-body">
+        <h5 class="card-title">Manzana</h5>
+        <p class="card-text">800</p>
+        <button class="btn btn-primary btn-agregar" data-nombre="Manzana" data-precio="800">
+          Agregar
+        </button>
+      </div>
+    </div>
 
-<!-- Tarjeta 4: Banano -->
-<div class="card" style="width: 18rem">
-  <img src="./assets/banano.png" class="card-img-top" alt="banano" />
-  <div class="card-body">
-    <h5 class="card-title">Banano</h5>
-    <p class="card-text">1.200</p>
-    <button
-      id="btn-banano"
-      class="btn btn-primary btn-agregar"
-      data-nombre="Banano"
-      data-precio="1200"
-    >
-      Agregar
-    </button>
-  </div>
-</div>
-<!-- carrito -->
-<div class="col-md-4">
+    <!-- Tarjeta 4: Banano -->
+    <div class="card" style="width: 18rem">
+      <img src="./assets/banano.png" class="card-img-top" alt="banano" />
+      <div class="card-body">
+        <h5 class="card-title">Banano</h5>
+        <p class="card-text">1.200</p>
+        <button class="btn btn-primary btn-agregar" data-nombre="Banano" data-precio="1200">
+          Agregar
+        </button>
+      </div>
+    </div>
+    <!-- carrito -->
+    <div class="col-md-4">
       <div class="card p-3 shadow">
         <h4>Total</h4>
-        <ul id="lista-carrito" class="list-group mb-3">
-  <li id="msg-vacio" class="list-group-item text-muted">Tu carrito está vacío</li>
-</ul>
-<h4>Total: <span id="total">$0</span></h4>
-<button id="btn-vaciar" class="btn w-100 mt-2">Vaciar Carrito</button>
+        <ul id="lista-carrito" class="list-group mb-3"></ul>
+        <p id="mensaje-vacio" class="text-muted">Tu carrito está vacío</p>
+        <h4>Total: <span id="total">$0</span></h4>
+        <button id="btn-vaciar" class="btn w-100 mt-2">Vaciar Carrito</button>
 
-    </main>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
-    <script src="app.js"></script>
-  </body>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script src="app.js"></script>
+</body>
+
 </html>
