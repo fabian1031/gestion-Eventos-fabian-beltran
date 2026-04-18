@@ -10,18 +10,22 @@ let mensajeVacio = document.getElementById("mensaje-vacio");
 
 function updateBadge() {
   contadorCarrito.textContent = cantidadProductos;
+  contadorCarrito.classList.remove("bump");
+  void contadorCarrito.offsetWidth;
+  contadorCarrito.classList.add("bump");
+  setTimeout(() => contadorCarrito.classList.remove("bump"), 300);
 }
-
 
 function updateTotal() {
-  totalProductos.textContent = totalAcumulado;
+  totalProductos.textContent = "$" + totalAcumulado.toLocaleString("es-CO");
 }
 
-
 function agregarProducto(cuenta) {
-  let precio = Number(cuenta.target.dataset.precio);
-  let nombre = cuenta.target.dataset.nombre;
-  totalAcumulado = totalAcumulado + precio;
+  let boton = cuenta.target.closest(".btn-agregar");
+  if (!boton) return;
+  let precio = Number(boton.dataset.precio);
+  let nombre = boton.dataset.nombre;
+  totalAcumulado += precio;
   cantidadProductos++;
 
   mensajeVacio.style.display = "none";
@@ -29,11 +33,18 @@ function agregarProducto(cuenta) {
   updateTotal();
   updateBadge();
 
+  boton.classList.add("added");
+  setTimeout(() => boton.classList.remove("added"), 400);
+
   let nuevoItem = document.createElement("li");
-  nuevoItem.textContent = nombre + " - $" + precio;
+
+  let textoSpan = document.createElement("span");
+  textoSpan.textContent = nombre + " — $" + precio.toLocaleString("es-CO");
+  nuevoItem.appendChild(textoSpan);
 
   let botonEliminar = document.createElement("button");
-  botonEliminar.textContent = "X";
+  botonEliminar.textContent = "✕";
+  botonEliminar.setAttribute("aria-label", "Eliminar " + nombre);
 
   botonEliminar.addEventListener("click", () => {
     eliminarItem(nuevoItem, precio);
@@ -43,31 +54,38 @@ function agregarProducto(cuenta) {
   listaCarrito.appendChild(nuevoItem);
 }
 
-
 function eliminarItem(li, precio) {
-  li.remove();
-  totalAcumulado = totalAcumulado - precio;
-  cantidadProductos = cantidadProductos - 1;
+  li.classList.add("removing");
+  setTimeout(() => {
+    li.remove();
+    totalAcumulado -= precio;
+    cantidadProductos--;
 
-  if (cantidadProductos === 0) {
-    mensajeVacio.style.display = "block";
-  }
+    if (cantidadProductos === 0) {
+      mensajeVacio.style.display = "block";
+    }
 
-  updateTotal();
-  updateBadge();
+    updateTotal();
+    updateBadge();
+  }, 220);
 }
-
 
 botones.forEach((boton) => {
   boton.addEventListener("click", agregarProducto);
 });
 
-
 botonVaciar.addEventListener("click", () => {
-  listaCarrito.innerHTML = "";
-  totalAcumulado = 0;
-  cantidadProductos = 0;
-  mensajeVacio.style.display = "block";
-  updateTotal();
-  updateBadge();
+  const items = listaCarrito.querySelectorAll("li");
+  items.forEach((item, i) => {
+    setTimeout(() => item.classList.add("removing"), i * 60);
+  });
+
+  setTimeout(() => {
+    listaCarrito.innerHTML = "";
+    totalAcumulado = 0;
+    cantidadProductos = 0;
+    mensajeVacio.style.display = "block";
+    updateTotal();
+    updateBadge();
+  }, items.length * 60 + 250);
 });
